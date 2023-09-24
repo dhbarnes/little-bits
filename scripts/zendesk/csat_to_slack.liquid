@@ -1,0 +1,163 @@
+{% comment %} SET ASSIGNEE SLACK TAG {% endcomment %}
+{% case ticket.assignee.email %}
+  {% when 'aaron.sims@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U02BKJABGCC>' %}
+  {% when 'adela.shen@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U048A215TLZ>' %}
+  {% when 'agnes@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U7RK5UHGT>' %}
+  {% when 'carolina.acuna@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U02BABQEZEH>' %}
+  {% when 'chloe.consedine@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U01PMDX1SSG>' %}
+  {% when 'claire@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U017UE8Q4GL>' %}
+  {% when 'dan@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@UBZPSRZ4Y>' %}
+  {% when 'dilara@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@UU7RWP1MJ>' %}
+  {% when 'ellis.glanfield@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U056VK4S43S>' %}
+  {% when 'estelle.druskovich@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U047CHU3D36>' %}
+  {% when 'frances.lewis@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U05MMA4RDM1>' %}
+  {% when 'grace.stephens@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U05MPRYSVE0>' %}
+  {% when 'kasun.kanangama@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U01FP27EH89>' %}
+  {% when 'luke.trivisonno@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U037Y02CVRA>' %}
+  {% when 'marcel.cicero@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U038KCDN1CG>' %}
+  {% when 'sally.young@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@U01PTTG4LCR>' %}
+  {% when 'stephanie@hotdoc.com.au' %}
+  {% assign assignee_slack_tag = '<@UKEEE1GKT>' %}
+  {% else %}
+  {% assign assignee_slack_tag = '<@UBZPSRZ4Y> please add this Slack tag to Shoutouts' %}
+{% endcase %}
+
+{% assign assignee_slack_tag = '<@UBZPSRZ4Y>' %}
+
+{% comment %} SET POST COLOUR {% endcomment %}
+{% assign colour_randomiser = ticket.id | modulo: 3 %}
+{% case colour_randomiser %}
+  {% when 0 %}
+  {% assign stripe_colour = '#81CB9D' %}
+  {% when 1 %}
+  {% assign stripe_colour = '#D291C0' %}
+  {% when 2 %}
+  {% assign stripe_colour = '#669BD2' %}
+  {% else %}
+  {% assign stripe_colour = '#FF0000' %}
+{% endcase %}
+
+{% comment %} SET EMOJI {% endcomment %}
+{% assign good_emoji_list = ':-nice-:,:a-sun-wearing-sunglasses:,:astroboy:,:cat-jam:,:ayy-lmao:,:bump:,:cookie-heart:,:cool-duck:,:coool:,:dancing-baby-dot-gif:,:flanders-scream:,:gold-star:,:gold-disco-ball-spin:,:hair_flip:,:high-five:,:heart-hands:,:heart-gem:,:meow-haw:,:neat:,:smashing:,:tadaco:,:this-is-actually-fine:,:whacky-waving-inflatable-arm-flailing-tube-man:,:blob-aww:,:carl-chef-kiss:,:catjam:,:chefkiss:,:crabby-snap-snap:,:crushing-it:,:eyyy-thanks-boo:,:feet-clap:,:heartdoc:,:jump:,:love-potion:,:meow-heart:,:noot-noot:,:pizza-heart:,:potato-heart:,:raised-feet:,:skibidi:,:thanking:,:traz:,:smiley:,:smiling_face_with_3_hearts:,:heart_eyes:,:star-struck:,:zany_face:,:hugging_face:,:face_with_cowboy_hat:,:partying_face:,:sunglasses:,:smile_cat:,:love_letter:,:the_horns:,:call_me_hand:,:raised_hands:,:tada:,:kermit-dance:,:fancy-dance-man:,:dancer:,:david-byrne-dance:,:charmander-dance:,:man_dancing:,:gem-rider:,:party-rock:,:nailed-it:' | split: ',' %}
+
+{% assign emoji_randomiser = 'now' | date: '%S' | plus: good_emoji_list.size | modulo: good_emoji_list.size %}
+{% assign emoji = good_emoji_list[emoji_randomiser] %}
+
+{% comment %} SET EXCLAMATION TEXT {% endcomment %}
+{% assign exclamation_randomiser = 'now' | date: '%S' | modulo: 25 %}
+{% case exclamation_randomiser %}
+  {% when 0 %}
+  {% capture exclamation %}{{ticket.assignee.first_name}} crushed it!{% endcapture %}
+  {% when 1 %}
+  {% capture exclamation %}Awesome job, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 2 %}
+  {% capture exclamation %}Shoutout to {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 3 %}
+  {% capture exclamation %}{{ticket.assignee.first_name}}, you rocked it!{% endcapture %}
+  {% when 4 %}
+  {% capture exclamation %}Outstanding performance, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 5 %}
+  {% capture exclamation %}Kudos to {{ticket.assignee.first_name}} for the exceptional work!{% endcapture %}
+  {% when 6 %}
+  {% capture exclamation %}{{ticket.assignee.first_name}}, you are on fire!{% endcapture %}
+  {% when 7 %}
+  {% capture exclamation %}Impressive job, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 8 %}
+  {% capture exclamation %}{{ticket.assignee.first_name}} is killing it out there!{% endcapture %}
+  {% when 9 %}
+  {% capture exclamation %}Fantastic work, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 10 %}
+  {% capture exclamation %}Bravo, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 11 %}
+  {% capture exclamation %}{{ticket.assignee.first_name}}, that was top-notch!{% endcapture %}
+  {% when 12 %}
+  {% capture exclamation %}Take a bow, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 13 %}
+  {% capture exclamation %}{{ticket.assignee.first_name}}, that was a stellar performance!{% endcapture %}
+  {% when 14 %}
+  {% capture exclamation %}High five to {{ticket.assignee.first_name}} for nailing it!{% endcapture %}
+  {% when 15 %}
+  {% capture exclamation %}Way to go, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 16 %}
+  {% capture exclamation %}{{ticket.assignee.first_name}}, you have outdone yourself this time!{% endcapture %}
+  {% when 17 %}
+  {% capture exclamation %}Keep it up, {{ticket.assignee.first_name}}! Exceptional work!{% endcapture %}
+  {% when 18 %}
+  {% capture exclamation %}{{ticket.assignee.first_name}}, setting the gold standard!{% endcapture %}
+  {% when 19 %}
+  {% capture exclamation %}Tip of the hat to {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 20 %}
+  {% capture exclamation %}Round of applause for {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 21 %}
+  {% capture exclamation %}{{ticket.assignee.first_name}}, what an achievement!{% endcapture %}
+  {% when 22 %}
+  {% capture exclamation %}Excellence is your middle name, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 23 %}
+  {% capture exclamation %}{{ticket.assignee.first_name}}, making us proud every step of the way!{% endcapture %}
+  {% when 24 %}
+  {% capture exclamation %}Unbelievable job, {{ticket.assignee.first_name}}! Keep soaring!{% endcapture %}
+  {% else %}
+  {% capture exclamation %}<@UBZPSRZ4Y>, something has gone wrong with the Shoutouts app. (ticket {{ticket.id}}){% endcapture %}
+{% endcase %}
+
+{% assign exclamation_randomiser = ticket.updated_at | date: '%S' | modulo: 3 %}
+{% case exclamation_randomiser %}
+  {% when 0 %}
+  {% capture bad_exclamation %}Note for {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 1 %}
+  {% capture bad_exclamation %}Hi, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% when 2 %}
+  {% capture bad_exclamation %}Thank you, {{ticket.assignee.first_name}}!{% endcapture %}
+{% endcase %}
+
+{% comment %} SET TICKET COMMENT {% endcomment %}
+{% if satisfaction.current_rating contains 'Good' %}
+  {% if satisfaction.current_comment %}
+	{% capture customer_comment %}: "{{satisfaction.current_comment}}"{% endcapture %}
+  {% else %}
+    {% assign customer_comment = ' that they had a good experience.' %}
+  {% endif %}
+{% elsif satisfaction.current_rating contains 'Bad' %}
+  {% assign stripe_colour = '#FFBD6A' %}
+  {% assign emoji = '' %}
+  {% assign exclamation = bad_exclamation %}
+
+  {% if satisfaction.current_comment %}
+	{% capture customer_comment %}: "{{satisfaction.current_comment}}"{% endcapture %}
+  {% else %}
+    {% assign customer_comment = ' that they had feedback.' %}
+  {% endif %}
+{% else %}
+  {% assign customer_comment = ' nothing.' %}
+{% endif %}
+
+{
+    'attachments': [
+        {
+            'color': '{{stripe_colour}}',
+            'fields': 
+            [
+                {
+                    'value': '{{emoji}} *{{exclamation}}* {{assignee_slack_tag}}\n<https://hotdoc.zendesk.com/agent/tickets/{{ticket.id}}|{{ticket.requester.first_name}} said>{{customer_comment}}, {{emoji_randomiser}}',
+                    'short': false
+                }
+            ]
+        }
+    ]
+}
