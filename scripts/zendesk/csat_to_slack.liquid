@@ -1,67 +1,23 @@
-{% comment %} SET ASSIGNEE SLACK TAG {% endcomment %}
-{% case ticket.assignee.email %}
-  {% when 'aaron.sims@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U02BKJABGCC>' %}
-  {% when 'adela.shen@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U048A215TLZ>' %}
-  {% when 'agnes@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U7RK5UHGT>' %}
-  {% when 'carolina.acuna@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U02BABQEZEH>' %}
-  {% when 'chloe.consedine@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U01PMDX1SSG>' %}
-  {% when 'claire@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U017UE8Q4GL>' %}
-  {% when 'dan@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@UBZPSRZ4Y>' %}
-  {% when 'dilara@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@UU7RWP1MJ>' %}
-  {% when 'ellis.glanfield@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U056VK4S43S>' %}
-  {% when 'estelle.druskovich@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U047CHU3D36>' %}
-  {% when 'frances.lewis@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U05MMA4RDM1>' %}
-  {% when 'grace.stephens@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U05MPRYSVE0>' %}
-  {% when 'kasun.kanangama@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U01FP27EH89>' %}
-  {% when 'luke.trivisonno@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U037Y02CVRA>' %}
-  {% when 'marcel.cicero@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U038KCDN1CG>' %}
-  {% when 'sally.young@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@U01PTTG4LCR>' %}
-  {% when 'stephanie@hotdoc.com.au' %}
-  {% assign assignee_slack_tag = '<@UKEEE1GKT>' %}
-  {% else %}
-  {% assign assignee_slack_tag = '<@UBZPSRZ4Y> please add this Slack tag to Shoutouts' %}
-{% endcase %}
+{% assign email_to_slack = 'aaron.sims@hotdoc.com.au:<@U02BKJABGCC>,adela.shen@hotdoc.com.au:<@U048A215TLZ>,agnes@hotdoc.com.au:<@U7RK5UHGT>,carolina.acuna@hotdoc.com.au:<@U02BABQEZEH>,chloe.consedine@hotdoc.com.au:<@U01PMDX1SSG>,claire@hotdoc.com.au:<@U017UE8Q4GL>,dan@hotdoc.com.au:<@UBZPSRZ4Y>,dilara@hotdoc.com.au:<@UU7RWP1MJ>,ellis.glanfield@hotdoc.com.au:<@U056VK4S43S>,estelle.druskovich@hotdoc.com.au:<@U047CHU3D36>,frances.lewis@hotdoc.com.au:<@U05MMA4RDM1>,grace.stephens@hotdoc.com.au:<@U05MPRYSVE0>,kasun.kanangama@hotdoc.com.au:<@U01FP27EH89>,luke.trivisonno@hotdoc.com.au:<@U037Y02CVRA>,marcel.cicero@hotdoc.com.au:<@U038KCDN1CG>,sally.young@hotdoc.com.au:<@U01PTTG4LCR>,stephanie@hotdoc.com.au:<@UKEEE1GKT>' | split: ',' %}
+{% assign assignee_slack_tag = '<@UBZPSRZ4Y> please add this Slack tag to Shoutouts' %}
+{% for pair in email_to_slack %}
+  {% if pair contains ticket.assignee.email %}
+    {% assign assignee_slack_tag = pair | split: ':' | last %}
+  {% endif %}
+{% endfor %}
 
 {% assign assignee_slack_tag = '<@UBZPSRZ4Y>' %}
 
-{% comment %} SET POST COLOUR {% endcomment %}
-{% assign colour_randomiser = ticket.id | modulo: 3 %}
-{% case colour_randomiser %}
-  {% when 0 %}
-  {% assign stripe_colour = '#81CB9D' %}
-  {% when 1 %}
-  {% assign stripe_colour = '#D291C0' %}
-  {% when 2 %}
-  {% assign stripe_colour = '#669BD2' %}
-  {% else %}
-  {% assign stripe_colour = '#FF0000' %}
-{% endcase %}
+{% assign colours = '#81CB9D,#D291C0,#669BD2,#FFBD6A' | split: ',' %}
+{% assign c_rand = ticket.id | modulo: 3 %}
 
-{% comment %} SET EMOJI {% endcomment %}
-{% assign good_emoji_list = ':-nice-:,:a-sun-wearing-sunglasses:,:astroboy:,:cat-jam:,:ayy-lmao:,:bump:,:cookie-heart:,:cool-duck:,:coool:,:dancing-baby-dot-gif:,:flanders-scream:,:gold-star:,:gold-disco-ball-spin:,:hair_flip:,:high-five:,:heart-hands:,:heart-gem:,:meow-haw:,:neat:,:smashing:,:tadaco:,:this-is-actually-fine:,:whacky-waving-inflatable-arm-flailing-tube-man:,:blob-aww:,:carl-chef-kiss:,:catjam:,:chefkiss:,:crabby-snap-snap:,:crushing-it:,:eyyy-thanks-boo:,:feet-clap:,:heartdoc:,:jump:,:love-potion:,:meow-heart:,:noot-noot:,:pizza-heart:,:potato-heart:,:raised-feet:,:skibidi:,:thanking:,:traz:,:smiley:,:smiling_face_with_3_hearts:,:heart_eyes:,:star-struck:,:zany_face:,:hugging_face:,:face_with_cowboy_hat:,:partying_face:,:sunglasses:,:smile_cat:,:love_letter:,:the_horns:,:call_me_hand:,:raised_hands:,:tada:,:kermit-dance:,:fancy-dance-man:,:dancer:,:david-byrne-dance:,:charmander-dance:,:man_dancing:,:gem-rider:,:party-rock:,:nailed-it:' | split: ',' %}
+{% assign good_emoji_list = ':-nice-:,:a-sun-wearing-sunglasses:,:astroboy:,:cat-jam:,:ayy-lmao:,:bump:,:cookie-heart:,:cool-duck:,:coool:,:dancing-baby-dot-gif:,:flanders-scream:,:gold-star:,:gold-disco-ball-spin:,:hair_flip:,:high-five:,:heart-hands:,:heart-gem:,:meow-haw:,:neat:,:smashing:,:tadaco:,:this-is-actually-fine:,:whacky-waving-inflatable-arm-flailing-tube-man:,:blob-aww:,:carl-chef-kiss:,:catjam:,:chefkiss:,:crabby-snap-snap:,:crushing-it:,:eyyy-thanks-boo:,:feet-clap:,:heartdoc:,:jump:,:love-potion:,:meow-heart:,:noot-noot:,:pizza-heart:,:potato-heart:,:raised-feet:,:skibidi:,:thanking:,:traz:,:smiley:,:smiling_face_with_3_hearts:,:heart_eyes:,:star-struck:,:zany_face:,:hugging_face:,:face_with_cowboy_hat:,:partying_face:,:sunglasses:,:smile_cat:,:love_letter:,:the_horns:,:call_me_hand:,:raised_hands:,:tada:,:kermit-dance:,:fancy-dance-man:,:dancer:,:david-byrne-dance:,:charmander-dance:,:man_dancing:,:gem-rider:,:party-rock:,:nailed-it:,:thanks:,:thankyou:,:okay-thank-you:' | split: ',' %}
 
-{% assign emoji_randomiser = 'now' | date: '%S' | plus: good_emoji_list.size | modulo: good_emoji_list.size %}
-{% assign emoji = good_emoji_list[emoji_randomiser] %}
+{% assign rand = 'now' | date: '%S' | plus: good_emoji_list.size | modulo: good_emoji_list.size %}
+{% assign emoji = good_emoji_list[rand] %}
 
-{% comment %} SET EXCLAMATION TEXT {% endcomment %}
-{% assign exclamation_randomiser = 'now' | date: '%S' | modulo: 25 %}
-{% case exclamation_randomiser %}
+{% assign rand = 'now' | date: '%S' | modulo: 25 %}
+{% case rand %}
   {% when 0 %}
   {% capture exclamation %}{{ticket.assignee.first_name}} crushed it!{% endcapture %}
   {% when 1 %}
@@ -116,8 +72,8 @@
   {% capture exclamation %}<@UBZPSRZ4Y>, something has gone wrong with the Shoutouts app. (ticket {{ticket.id}}){% endcapture %}
 {% endcase %}
 
-{% assign exclamation_randomiser = ticket.updated_at | date: '%S' | modulo: 3 %}
-{% case exclamation_randomiser %}
+{% assign rand = ticket.updated_at | date: '%S' | modulo: 3 %}
+{% case rand %}
   {% when 0 %}
   {% capture bad_exclamation %}Note for {{ticket.assignee.first_name}}!{% endcapture %}
   {% when 1 %}
@@ -126,7 +82,6 @@
   {% capture bad_exclamation %}Thank you, {{ticket.assignee.first_name}}!{% endcapture %}
 {% endcase %}
 
-{% comment %} SET TICKET COMMENT {% endcomment %}
 {% if satisfaction.current_rating contains 'Good' %}
   {% if satisfaction.current_comment %}
 	{% capture customer_comment %}: "{{satisfaction.current_comment}}"{% endcapture %}
@@ -134,7 +89,7 @@
     {% assign customer_comment = ' that they had a good experience.' %}
   {% endif %}
 {% elsif satisfaction.current_rating contains 'Bad' %}
-  {% assign stripe_colour = '#FFBD6A' %}
+  {% assign c_rand = 3 %}
   {% assign emoji = '' %}
   {% assign exclamation = bad_exclamation %}
 
@@ -150,11 +105,11 @@
 {
     'attachments': [
         {
-            'color': '{{stripe_colour}}',
+            'color': '{{colours[c_rand]}}',
             'fields': 
             [
                 {
-                    'value': '{{emoji}} *{{exclamation}}* {{assignee_slack_tag}}\n<https://hotdoc.zendesk.com/agent/tickets/{{ticket.id}}|{{ticket.requester.first_name}} said>{{customer_comment}}, {{emoji_randomiser}}',
+                    'value': '{{emoji}} *{{exclamation}}* {{assignee_slack_tag}}\n<https://hotdoc.zendesk.com/agent/tickets/{{ticket.id}}|{{ticket.requester.first_name}} said>{{customer_comment}}',
                     'short': false
                 }
             ]
