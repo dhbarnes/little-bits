@@ -6,17 +6,15 @@
   {% endif %}
 {% endfor %}
 
-{% assign assignee_slack_tag = '<@UBZPSRZ4Y>' %}
-
 {% assign colours = '#81CB9D,#D291C0,#669BD2,#FFBD6A' | split: ',' %}
 {% assign c_rand = ticket.id | modulo: 3 %}
 
-{% assign good_emoji_list = ':-nice-:,:a-sun-wearing-sunglasses:,:astroboy:,:cat-jam:,:ayy-lmao:,:bump:,:cookie-heart:,:cool-duck:,:coool:,:dancing-baby-dot-gif:,:flanders-scream:,:gold-star:,:gold-disco-ball-spin:,:hair_flip:,:high-five:,:heart-hands:,:heart-gem:,:meow-haw:,:neat:,:smashing:,:tadaco:,:this-is-actually-fine:,:whacky-waving-inflatable-arm-flailing-tube-man:,:blob-aww:,:carl-chef-kiss:,:catjam:,:chefkiss:,:crabby-snap-snap:,:crushing-it:,:eyyy-thanks-boo:,:feet-clap:,:heartdoc:,:jump:,:love-potion:,:meow-heart:,:noot-noot:,:pizza-heart:,:potato-heart:,:raised-feet:,:skibidi:,:thanking:,:traz:,:smiley:,:smiling_face_with_3_hearts:,:heart_eyes:,:star-struck:,:zany_face:,:hugging_face:,:face_with_cowboy_hat:,:partying_face:,:sunglasses:,:smile_cat:,:love_letter:,:the_horns:,:call_me_hand:,:raised_hands:,:tada:,:kermit-dance:,:fancy-dance-man:,:dancer:,:david-byrne-dance:,:charmander-dance:,:man_dancing:,:gem-rider:,:party-rock:,:nailed-it:,:thanks:,:thankyou:,:okay-thank-you:' | split: ',' %}
+{% assign emoji_list = ':-nice-:,:a-sun-wearing-sunglasses:,:astroboy:,:cat-jam:,:ayy-lmao:,:bump:,:cookie-heart:,:cool-duck:,:coool:,:dancing-baby-dot-gif:,:flanders-scream:,:gold-star:,:gold-disco-ball-spin:,:hair_flip:,:high-five:,:heart-hands:,:heart-gem:,:meow-haw:,:neat:,:smashing:,:tadaco:,:this-is-actually-fine:,:whacky-waving-inflatable-arm-flailing-tube-man:,:blob-aww:,:carl-chef-kiss:,:catjam:,:chefkiss:,:crabby-snap-snap:,:crushing-it:,:eyyy-thanks-boo:,:feet-clap:,:heartdoc:,:jump:,:love-potion:,:meow-heart:,:noot-noot:,:pizza-heart:,:potato-heart:,:raised-feet:,:skibidi:,:thanking:,:traz:,:smiley:,:smiling_face_with_3_hearts:,:heart_eyes:,:star-struck:,:zany_face:,:hugging_face:,:face_with_cowboy_hat:,:partying_face:,:sunglasses:,:smile_cat:,:love_letter:,:the_horns:,:call_me_hand:,:raised_hands:,:tada:,:kermit-dance:,:fancy-dance-man:,:dancer:,:david-byrne-dance:,:charmander-dance:,:man_dancing:,:gem-rider:,:party-rock:,:nailed-it:,:thanks:,:thankyou:,:okay-thank-you:' | split: ',' %}
 
-{% assign rand = 'now' | date: '%S' | plus: good_emoji_list.size | modulo: good_emoji_list.size %}
-{% assign emoji = good_emoji_list[rand] %}
+{% assign rand = 'now' | date: '%S' | times: ticket.id | modulo: emoji_list.size %}
+{% assign emoji = emoji_list[rand] %}
 
-{% assign rand = 'now' | date: '%S' | modulo: 25 %}
+{% assign rand = ticket.requester.id | times: ticket.id | modulo: 25 %}
 {% case rand %}
   {% when 0 %}
   {% capture exclamation %}{{ticket.assignee.first_name}} crushed it!{% endcapture %}
