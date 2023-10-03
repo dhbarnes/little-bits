@@ -9,63 +9,65 @@
 {% assign colours = '#81CB9D,#D291C0,#669BD2,#FFBD6A' | split: ',' %}
 {% assign c_rand = ticket.id | modulo: 3 %}
 
-{% assign emoji_list = ':-nice-:,:a-sun-wearing-sunglasses:,:astroboy:,:cat-jam:,:ayy-lmao:,:bump:,:cookie-heart:,:cool-duck:,:coool:,:dancing-baby-dot-gif:,:flanders-scream:,:gold-star:,:gold-disco-ball-spin:,:hair_flip:,:high-five:,:heart-hands:,:heart-gem:,:meow-haw:,:neat:,:smashing:,:tadaco:,:this-is-actually-fine:,:whacky-waving-inflatable-arm-flailing-tube-man:,:blob-aww:,:carl-chef-kiss:,:catjam:,:chefkiss:,:crabby-snap-snap:,:crushing-it:,:eyyy-thanks-boo:,:feet-clap:,:heartdoc:,:jump:,:love-potion:,:meow-heart:,:noot-noot:,:pizza-heart:,:potato-heart:,:raised-feet:,:skibidi:,:thanking:,:traz:,:smiley:,:smiling_face_with_3_hearts:,:heart_eyes:,:star-struck:,:zany_face:,:hugging_face:,:face_with_cowboy_hat:,:partying_face:,:sunglasses:,:smile_cat:,:love_letter:,:the_horns:,:call_me_hand:,:raised_hands:,:tada:,:kermit-dance:,:fancy-dance-man:,:dancer:,:david-byrne-dance:,:charmander-dance:,:man_dancing:,:gem-rider:,:party-rock:,:nailed-it:,:thanks:,:thankyou:,:okay-thank-you:' | split: ',' %}
+{% assign emoji_list = '-nice-,a-sun-wearing-sunglasses,astroboy,cat-jam,ayy-lmao,bump,cookie-heart,cool-duck,coool,dancing-baby-dot-gif,flanders-scream,gold-star,gold-disco-ball-spin,hair_flip,high-five,heart-hands,heart-gem,meow-haw,neat,smashing,tadaco,this-is-actually-fine,whacky-waving-inflatable-arm-flailing-tube-man,blob-aww,carl-chef-kiss,catjam,chefkiss,crabby-snap-snap,crushing-it,eyyy-thanks-boo,feet-clap,heartdoc,jump,love-potion,meow-heart,noot-noot,pizza-heart,potato-heart,raised-feet,skibidi,thanking,traz,smiley,smiling_face_with_3_hearts,heart_eyes,star-struck,zany_face,hugging_face,face_with_cowboy_hat,partying_face,sunglasses,smile_cat,love_letter,the_horns,call_me_hand,raised_hands,tada,kermit-dance,fancy-dance-man,dancer,david-byrne-dance,charmander-dance,man_dancing,gem-rider,party-rock,nailed-it,thanks,thankyou,okay-thank-you,awesome-face,badger-dance,blob-excited,claire-does-approve,fancy-dance,fingerguns-right,jake-dance,success,swedish-chefkiss,toast,yay-patrick,woohoo,fire' | split: ',' %}
 
 {% assign rand = 'now' | date: '%S' | times: ticket.id | modulo: emoji_list.size %}
-{% assign emoji = emoji_list[rand] %}
+{% capture emoji %}:{{emoji_list[rand]}}:{% endcapture %}
+
+{% assign assignee = ticket.assignee.first_name %}
 
 {% assign rand = ticket.requester.id | times: ticket.id | modulo: 25 %}
 {% case rand %}
   {% when 0 %}
-  {% capture exclamation %}{{ticket.assignee.first_name}} crushed it!{% endcapture %}
+  {% capture exclamation %}{{assignee}} crushed it!{% endcapture %}
   {% when 1 %}
-  {% capture exclamation %}Awesome job, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Awesome job, {{assignee}}!{% endcapture %}
   {% when 2 %}
-  {% capture exclamation %}Shoutout to {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Shoutout to {{assignee}}!{% endcapture %}
   {% when 3 %}
-  {% capture exclamation %}{{ticket.assignee.first_name}}, you rocked it!{% endcapture %}
+  {% capture exclamation %}{{assignee}}, you rocked it!{% endcapture %}
   {% when 4 %}
-  {% capture exclamation %}Outstanding performance, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Outstanding performance, {{assignee}}!{% endcapture %}
   {% when 5 %}
-  {% capture exclamation %}Kudos to {{ticket.assignee.first_name}} for the exceptional work!{% endcapture %}
+  {% capture exclamation %}Kudos to {{assignee}} for the exceptional work!{% endcapture %}
   {% when 6 %}
-  {% capture exclamation %}{{ticket.assignee.first_name}}, you are on fire!{% endcapture %}
+  {% capture exclamation %}{{assignee}}, you are on fire!{% endcapture %}
   {% when 7 %}
-  {% capture exclamation %}Impressive job, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Impressive job, {{assignee}}!{% endcapture %}
   {% when 8 %}
-  {% capture exclamation %}{{ticket.assignee.first_name}} is killing it out there!{% endcapture %}
+  {% capture exclamation %}{{assignee}} is killing it out there!{% endcapture %}
   {% when 9 %}
-  {% capture exclamation %}Fantastic work, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Fantastic work, {{assignee}}!{% endcapture %}
   {% when 10 %}
-  {% capture exclamation %}Bravo, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Bravo, {{assignee}}!{% endcapture %}
   {% when 11 %}
-  {% capture exclamation %}{{ticket.assignee.first_name}}, that was top-notch!{% endcapture %}
+  {% capture exclamation %}{{assignee}}, that was top-notch!{% endcapture %}
   {% when 12 %}
-  {% capture exclamation %}Take a bow, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Take a bow, {{assignee}}!{% endcapture %}
   {% when 13 %}
-  {% capture exclamation %}{{ticket.assignee.first_name}}, that was a stellar performance!{% endcapture %}
+  {% capture exclamation %}{{assignee}}, that was a stellar performance!{% endcapture %}
   {% when 14 %}
-  {% capture exclamation %}High five to {{ticket.assignee.first_name}} for nailing it!{% endcapture %}
+  {% capture exclamation %}High five to {{assignee}} for nailing it!{% endcapture %}
   {% when 15 %}
-  {% capture exclamation %}Way to go, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Way to go, {{assignee}}!{% endcapture %}
   {% when 16 %}
-  {% capture exclamation %}{{ticket.assignee.first_name}}, you have outdone yourself this time!{% endcapture %}
+  {% capture exclamation %}{{assignee}}, you have outdone yourself this time!{% endcapture %}
   {% when 17 %}
-  {% capture exclamation %}Keep it up, {{ticket.assignee.first_name}}! Exceptional work!{% endcapture %}
+  {% capture exclamation %}Keep it up, {{assignee}}! Exceptional work!{% endcapture %}
   {% when 18 %}
-  {% capture exclamation %}{{ticket.assignee.first_name}}, setting the gold standard!{% endcapture %}
+  {% capture exclamation %}{{assignee}}, setting the gold standard!{% endcapture %}
   {% when 19 %}
-  {% capture exclamation %}Tip of the hat to {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Tip of the hat to {{assignee}}!{% endcapture %}
   {% when 20 %}
-  {% capture exclamation %}Round of applause for {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Round of applause for {{assignee}}!{% endcapture %}
   {% when 21 %}
-  {% capture exclamation %}{{ticket.assignee.first_name}}, what an achievement!{% endcapture %}
+  {% capture exclamation %}{{assignee}}, what an achievement!{% endcapture %}
   {% when 22 %}
-  {% capture exclamation %}Excellence is your middle name, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture exclamation %}Excellence is your middle name, {{assignee}}!{% endcapture %}
   {% when 23 %}
-  {% capture exclamation %}{{ticket.assignee.first_name}}, making us proud every step of the way!{% endcapture %}
+  {% capture exclamation %}{{assignee}}, making us proud every step of the way!{% endcapture %}
   {% when 24 %}
-  {% capture exclamation %}Unbelievable job, {{ticket.assignee.first_name}}! Keep soaring!{% endcapture %}
+  {% capture exclamation %}Unbelievable job, {{assignee}}! Keep soaring!{% endcapture %}
   {% else %}
   {% capture exclamation %}<@UBZPSRZ4Y>, something has gone wrong with the Shoutouts app. (ticket {{ticket.id}}){% endcapture %}
 {% endcase %}
@@ -73,11 +75,11 @@
 {% assign rand = ticket.updated_at | date: '%S' | modulo: 3 %}
 {% case rand %}
   {% when 0 %}
-  {% capture bad_exclamation %}Note for {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture bad_exclamation %}Note for {{assignee}}!{% endcapture %}
   {% when 1 %}
-  {% capture bad_exclamation %}Hi, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture bad_exclamation %}Hi, {{assignee}}!{% endcapture %}
   {% when 2 %}
-  {% capture bad_exclamation %}Thank you, {{ticket.assignee.first_name}}!{% endcapture %}
+  {% capture bad_exclamation %}Thank you, {{assignee}}!{% endcapture %}
 {% endcase %}
 
 {% if satisfaction.current_rating contains 'Good' %}
